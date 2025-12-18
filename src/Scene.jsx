@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useState } from "react";
 
 import { useColyseus } from "./network/useColyseus";
 import { useMovement } from "./controls/useMovement";
@@ -6,7 +6,7 @@ import { useThree } from "@react-three/fiber";
 //import { Physics, RigidBody } from "@react-three/rapier";
 import { Html } from "@react-three/drei";
 
-function Overlay() {
+function Overlay({ timer }) {
   return (
     <Html position={[0, 0, 0]} fullscreen>
       <div
@@ -18,7 +18,7 @@ function Overlay() {
           fontSize: "24px",
         }}
       >
-        00:00
+        {timer}
       </div>
 
       <div
@@ -36,9 +36,9 @@ function Overlay() {
   );
 }
 
-export function Scene() {
+export function Scene({ countStr }) {
   const myRigid = useRef();
-
+  //const [countStr, setCountStr] = useState("05:00");
   const { players, sendInput, myId } = useColyseus();
   const { onTouchStart, onTouchMove, onTouchEnd, isTouching } =
     useMovement(sendInput);
@@ -75,7 +75,7 @@ export function Scene() {
 
   return (
     <>
-      <Overlay />
+      <Overlay timer={countStr} />
       {/* Ground */}
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
