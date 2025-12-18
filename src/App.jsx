@@ -5,7 +5,7 @@ import { Scene } from "./Scene";
 
 export default function App() {
   const [duration, setDuration] = useState(null);
-  consrt[(id, setId)] = useState(null);
+  const [id, setId] = useState(null);
 
   useEffect(() => {
     // --- URL params ---
