@@ -6,7 +6,7 @@ import { useThree } from "@react-three/fiber";
 //import { Physics, RigidBody } from "@react-three/rapier";
 import { Html } from "@react-three/drei";
 
-function Overlay({ timer }) {
+function Overlay({ timer, id }) {
   return (
     <Html position={[0, 0, 0]} fullscreen>
       <div
@@ -30,13 +30,13 @@ function Overlay({ timer }) {
           fontSize: "18px",
         }}
       >
-        Room ID
+        {id}
       </div>
     </Html>
   );
 }
 
-export function Scene({ countStr }) {
+export function Scene({ countStr, idStr }) {
   const myRigid = useRef();
   //const [countStr, setCountStr] = useState("05:00");
   const { players, sendInput, myId } = useColyseus();
@@ -75,7 +75,7 @@ export function Scene({ countStr }) {
 
   return (
     <>
-      <Overlay timer={countStr} />
+      <Overlay timer={countStr} id={idStr} />
       {/* Ground */}
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
