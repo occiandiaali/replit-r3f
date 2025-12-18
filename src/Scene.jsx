@@ -1,13 +1,48 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 
 import { useColyseus } from "./network/useColyseus";
 import { useMovement } from "./controls/useMovement";
 import { useThree } from "@react-three/fiber";
+//import { Physics, RigidBody } from "@react-three/rapier";
+import { Html } from "@react-three/drei";
+
+function Overlay() {
+  return (
+    <Html position={[0, 0, 0]} fullscreen>
+      <div
+        style={{
+          position: "absolute",
+          top: 14, //20,
+          right: 20,
+          color: "green",
+          fontSize: "24px",
+        }}
+      >
+        00:00
+      </div>
+
+      <div
+        style={{
+          position: "absolute",
+          top: 30,
+          left: 20,
+          color: "green",
+          fontSize: "18px",
+        }}
+      >
+        Room ID
+      </div>
+    </Html>
+  );
+}
 
 export function Scene() {
+  const myRigid = useRef();
+
   const { players, sendInput, myId } = useColyseus();
   const { onTouchStart, onTouchMove, onTouchEnd, isTouching } =
     useMovement(sendInput);
+
   const { gl, size } = useThree();
 
   // Touch layer
@@ -40,7 +75,9 @@ export function Scene() {
 
   return (
     <>
+      <Overlay />
       {/* Ground */}
+
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[50, 50]} />
         <meshStandardMaterial color="#808080" />
@@ -48,7 +85,7 @@ export function Scene() {
 
       {/* Players */}
       {playerEntries.map((p) => (
-        <mesh key={p.sessionId} position={[p.x, 0.28, p.z]} castShadow>
+        <mesh key={p.sessionId} position={[p.x, 0.3, p.z]} castShadow>
           <boxGeometry args={[0.6, 0.6, 0.6]} />
           <meshStandardMaterial
             color={p.sessionId === myId ? "#3ba7ff" : "#ff7f3b"}
