@@ -9,9 +9,9 @@ export default function App() {
   useEffect(() => {
     // --- URL params ---
     const params = new URLSearchParams(window.location.search);
-    const timeCount = params.get("timer");
-    console.log("timeCount ", timeCount);
-    setDuration(timeCount);
+
+    setDuration(params.get("timer"));
+    console.log("timeCount ", duration);
   }, []);
 
   return (
