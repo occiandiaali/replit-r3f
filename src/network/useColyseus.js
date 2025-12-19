@@ -37,6 +37,14 @@ export function useColyseus({ countdownDuration }) {
           return next;
         });
       });
+      //========
+      room.onMessage("gameStarted", (msg) => {
+        console.log(msg);
+      });
+      room.onMessage("timeLeft", (msg) => {
+        console.log(msg);
+      });
+      //=========
     });
 
     return () => {
@@ -48,5 +56,5 @@ export function useColyseus({ countdownDuration }) {
     roomRef.current?.send("input", { dx, dz });
   };
 
-  return { players, sendInput, myId };
+  return { countdown, players, sendInput, myId };
 }
