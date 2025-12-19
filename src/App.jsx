@@ -17,8 +17,9 @@ export default function App() {
   //   console.log("Room ", id);
   // }, []);
   const params = new URLSearchParams(window.location.search);
-  const countdownDuration = parseInt(params.get("countdown") || "5", 10);
+  const countdownDuration = params.get("countdown");
   const id = params.get("room_id");
+  console.log("App.jsx", countdownDuration);
 
   return (
     <div style={{ width: "100%", height: "550px", overflowY: "hidden" }}>

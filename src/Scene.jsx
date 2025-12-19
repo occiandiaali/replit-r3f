@@ -6,10 +6,15 @@ import { useThree } from "@react-three/fiber";
 //import { Physics, RigidBody } from "@react-three/rapier";
 import { Html } from "@react-three/drei";
 
-function formatTime(seconds) {
+function convertSecondsToMinutes(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
-  return `${minutes}:${remainingSeconds}`;
+
+  // Format minutes and seconds to always have two digits
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+  const formattedSeconds = remainingSeconds.toString().padStart(2, "0");
+
+  return `${formattedMinutes}:${formattedSeconds}`;
 }
 
 function Overlay({ timer, id }) {
@@ -24,7 +29,7 @@ function Overlay({ timer, id }) {
           fontSize: "24px",
         }}
       >
-        {formatTime(timer) || "00:00"}
+        {convertSecondsToMinutes(timer) || "00:00"}
       </div>
 
       <div
