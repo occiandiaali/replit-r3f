@@ -35,11 +35,25 @@ function Overlay({ timer, id }) {
     </Html>
   );
 }
+// <Html>
+//   <div style={{
+//     position: "absolute",
+//     top: "10px",
+//     left: "10px",
+//     color: "white",
+//     fontSize: "20px",
+//     fontFamily: "monospace",
+//     background: "rgba(0,0,0,0.5)",
+//     padding: "5px 10px",
+//     borderRadius: "5px"
+//   }}>
+//     ⏳ Countdown: {countdown}
+//   </div>
+// </Html>
 
-export function Scene({ countStr, idStr }) {
-  const myRigid = useRef();
-  //const [countStr, setCountStr] = useState("05:00");
-  const { players, sendInput, myId } = useColyseus();
+export function Scene({ countdownDuration, idStr }) {
+  const { countdown, players, sendInput, myId } =
+    useColyseus(countdownDuration);
   const { onTouchStart, onTouchMove, onTouchEnd, isTouching } =
     useMovement(sendInput);
 
@@ -75,7 +89,7 @@ export function Scene({ countStr, idStr }) {
 
   return (
     <>
-      <Overlay timer={countStr} id={idStr} />
+      <Overlay timer={countdown} id={idStr} />
       {/* Ground */}
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>

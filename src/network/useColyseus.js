@@ -1,16 +1,19 @@
 import { Client, getStateCallbacks, Room } from "colyseus.js";
 import { useEffect, useRef, useState } from "react";
 
-export function useColyseus() {
+export function useColyseus({ countdownDuration }) {
   const [players, setPlayers] = useState({});
   const roomRef = useRef(null);
   const [myId, setMyId] = useState(null);
+  const [countdown, setCountdown] = useState(countdownDuration);
 
   useEffect(() => {
     const client = new Client("https://colys-blindate.onrender.com");
-    client.joinOrCreate("game_room", {}).then((room) => {
+    client.joinOrCreate("game_room", { countdownDuration }).then((room) => {
+      room.onStateChange((state) => setCountdown(state.countdown));
       roomRef.current = room;
       setMyId(room.sessionId);
+
       const $ = getStateCallbacks(roomRef.current);
 
       // Sync players map
@@ -39,7 +42,7 @@ export function useColyseus() {
     return () => {
       roomRef.current?.leave();
     };
-  }, []);
+  }, [countdownDuration]);
 
   const sendInput = (dx, dz) => {
     roomRef.current?.send("input", { dx, dz });
