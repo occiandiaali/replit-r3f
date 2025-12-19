@@ -6,6 +6,12 @@ import { useThree } from "@react-three/fiber";
 //import { Physics, RigidBody } from "@react-three/rapier";
 import { Html } from "@react-three/drei";
 
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes} min ${remainingSeconds} sec`;
+}
+
 function Overlay({ timer, id }) {
   return (
     <Html position={[0, 0, 0]} fullscreen>
@@ -18,7 +24,7 @@ function Overlay({ timer, id }) {
           fontSize: "24px",
         }}
       >
-        {timer}
+        {formatTime(timer)}
       </div>
 
       <div
