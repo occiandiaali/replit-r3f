@@ -63,8 +63,10 @@ function Overlay({ timer, id }) {
 // </Html>
 
 export function Scene({ countdownDuration, idStr }) {
-  const { countdown, players, sendInput, myId } =
-    useColyseus(countdownDuration);
+  const { countdown, players, sendInput, myId } = useColyseus(
+    countdownDuration,
+    idStr
+  );
   const { onTouchStart, onTouchMove, onTouchEnd, isTouching } =
     useMovement(sendInput);
 
