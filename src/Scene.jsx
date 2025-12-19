@@ -9,7 +9,7 @@ import { Html } from "@react-three/drei";
 function formatTime(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
-  return `${minutes} min ${remainingSeconds} sec`;
+  return `${minutes}:${remainingSeconds}`;
 }
 
 function Overlay({ timer, id }) {
@@ -24,16 +24,16 @@ function Overlay({ timer, id }) {
           fontSize: "24px",
         }}
       >
-        {formatTime(timer)}
+        {formatTime(timer) || "00:00"}
       </div>
 
       <div
         style={{
           position: "absolute",
-          top: 30,
-          left: 20,
+          top: 10,
+          left: 15,
           color: "green",
-          fontSize: "18px",
+          fontSize: "16px",
         }}
       >
         {id}

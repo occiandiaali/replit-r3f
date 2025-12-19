@@ -1,7 +1,7 @@
 import { Client, getStateCallbacks, Room } from "colyseus.js";
 import { useEffect, useRef, useState } from "react";
 
-export function useColyseus({ countdownDuration }) {
+export function useColyseus(countdownDuration) {
   const [players, setPlayers] = useState({});
   const roomRef = useRef(null);
   const [myId, setMyId] = useState(null);
